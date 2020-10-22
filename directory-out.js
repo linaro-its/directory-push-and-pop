@@ -39,6 +39,9 @@ try {
     // If the named directory exists, move it.
     if (dirExists(`${cacheDirectory}/${namedDirectory}`)) {
         fs.renameSync(`${cacheDirectory}/${namedDirectory}`, `${destinationDirectory}/${namedDirectory}`);
+        console.log(`Moved ${cacheDirectory}/${namedDirectory} to ${destinationDirectory}`);
+    } else {
+        console.log(`${cacheDirectory}/${namedDirectory} does not exist`);
     }
 } catch (error) {
     core.setFailed(error.message);
