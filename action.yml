@@ -4,9 +4,7 @@ branding:
   icon: "archive"
   color: "green"
 description: |
-  By using a nominated cache directory, this action moves a named directory
-  out of the cache into the specified destination directory (default is
-  $GITHUB_WORKSPACE) and then, after the job finishes, moves it back.
+  Moves a named directory out of a cache and back again.
 inputs:
   cacheDirectory:
     description: "Path to the directory used to store directories"
