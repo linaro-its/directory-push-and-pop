@@ -55,7 +55,7 @@ try {
             console.log(`Synced ${destinationDirectory}/${namedDirectory} to ${cacheDirectory}`);
         }
         if (deleteAtEnd) {
-            fs.rmSync(
+            fs.rmdirSync(
                 `${destinationDirectory}/${namedDirectory}`,
                 { recursive: true }
             );
