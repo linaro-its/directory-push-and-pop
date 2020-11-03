@@ -4,18 +4,24 @@ branding:
   icon: "archive"
   color: "green"
 description: |
-  Moves a named directory out of a cache and back again.
+  Syncs a named directory from a cache and optionally back again.
 inputs:
   cacheDirectory:
     description: "Path to the directory used to store directories"
     required: true
   namedDirectory:
-    description: "Name of the directory to move"
+    description: "Name of the directory to sync"
     required: true
   destinationDirectory:
-    description: "Where to move the named directory to"
+    description: "Where to sync the named directory to"
+    required: false
+  popAtEnd:
+    description: "Sync back to cache at the end of the workflow"
+    required: false
+  deleteAfterPop:
+    description: "Delete named directory at the end of the workflow"
     required: false
 runs:
   using: "node12"
-  main: 'directory-out.js'
-  post: 'directory-in.js'
+  main: 'directory-push.js'
+  post: 'directory-pop.js'

@@ -1,7 +1,7 @@
-// Reverses what directory-out did, namely moving the
-// named directory out of the destination directory back
-// into the cache directory.
+// Syncs the named directory (if it exists) from the cache directory
+// to the destination directory.
 const core = require('@actions/core');
+const execSync = require('child_process').execSync;
 const fs = require('fs');
 
 function isDirSync(aPath) {
@@ -26,6 +26,13 @@ function dirExists(aPath) {
     return false;
 }
 
+function rsync(fromPath, toPath) {
+    execSync(
+        `rsync -qcru ${fromPath}/ ${toPath} --delete`,
+        { encoding: 'utf-8' }
+    );
+}
+
 try {
     const cacheDirectory = core.getInput("cacheDirectory", { required: true });
     const namedDirectory = core.getInput("namedDirectory", { required: true });
@@ -37,12 +44,12 @@ try {
     // Check that cache and dest exist and are directories.
     isDirSync(cacheDirectory);
     isDirSync(destinationDirectory);
-    // If the named directory exists, move it.
-    if (dirExists(`${destinationDirectory}/${namedDirectory}`)) {
-        fs.renameSync(`${destinationDirectory}/${namedDirectory}`, `${cacheDirectory}/${namedDirectory}`);
-        console.log(`Moved ${destinationDirectory}/${namedDirectory} to ${cacheDirectory}`);
+    // If the named directory exists, sync it.
+    if (dirExists(`${cacheDirectory}/${namedDirectory}`)) {
+        rsync(`${cacheDirectory}/${namedDirectory}`, `${destinationDirectory}/${namedDirectory}`);
+        console.log(`Synced ${cacheDirectory}/${namedDirectory} to ${destinationDirectory}`);
     } else {
-        console.log(`${destinationDirectory}/${namedDirectory} does not exist`);
+        console.log(`${cacheDirectory}/${namedDirectory} does not exist`);
     }
 } catch (error) {
     core.setFailed(error.message);
