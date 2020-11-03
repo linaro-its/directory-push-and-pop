@@ -17,9 +17,11 @@ inputs:
     required: false
   popAtEnd:
     description: "Sync back to cache at the end of the workflow"
+    default: true
     required: false
-  deleteAfterPop:
+  deleteAtEnd:
     description: "Delete named directory at the end of the workflow"
+    default: true
     required: false
 runs:
   using: "node12"

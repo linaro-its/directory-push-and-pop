@@ -44,7 +44,7 @@ try {
         destinationDirectory = process.env["GITHUB_WORKSPACE"];
     }
     const popAtEnd = core.getInput("popAtEnd")
-    const deleteAfterPop = core.getInput("deleteAfterPop");
+    const deleteAtEnd = core.getInput("deleteAtEnd");
     // Check that cache and dest exist and are directories.
     isDirSync(cacheDirectory);
     isDirSync(destinationDirectory);
@@ -54,7 +54,7 @@ try {
             rsync(`${destinationDirectory}/${namedDirectory}`, `${cacheDirectory}/${namedDirectory}`);
             console.log(`Synced ${destinationDirectory}/${namedDirectory} to ${cacheDirectory}`);
         }
-        if (deleteAfterPop) {
+        if (deleteAtEnd) {
             fs.rmSync(
                 `${destinationDirectory}/${namedDirectory}`,
                 { recursive: true }
