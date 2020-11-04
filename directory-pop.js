@@ -45,6 +45,7 @@ try {
     }
     const popAtEnd = core.getInput("popAtEnd")
     const deleteAtEnd = core.getInput("deleteAtEnd");
+    console.log(typeof(popAtEnd));
     // Check that cache and dest exist and are directories.
     isDirSync(cacheDirectory);
     isDirSync(destinationDirectory);
