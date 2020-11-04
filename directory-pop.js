@@ -53,8 +53,6 @@ try {
         if (popAtEnd === "true") {
             rsync(`${destinationDirectory}/${namedDirectory}`, `${cacheDirectory}/${namedDirectory}`);
             console.log(`Synced ${destinationDirectory}/${namedDirectory} to ${cacheDirectory}`);
-        } else {
-            console.log("Skipping sync back to cache directory");
         }
         if (deleteAtEnd === "true") {
             fs.rmdirSync(
@@ -62,8 +60,6 @@ try {
                 { recursive: true }
             );
             console.log(`Deleted ${destinationDirectory}/${namedDirectory}`);
-        } else {
-            console.log("Skipping deletion of named directory");
         }
     } else {
         console.log(`${destinationDirectory}/${namedDirectory} does not exist`);
