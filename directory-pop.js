@@ -43,24 +43,27 @@ try {
     if (!destinationDirectory) {
         destinationDirectory = process.env["GITHUB_WORKSPACE"];
     }
-    const popAtEnd = core.getInput("popAtEnd")
+    const popAtEnd = core.getInput("popAtEnd");
     const deleteAtEnd = core.getInput("deleteAtEnd");
-    console.log(typeof(popAtEnd));
     // Check that cache and dest exist and are directories.
     isDirSync(cacheDirectory);
     isDirSync(destinationDirectory);
     // If the named directory exists ...
     if (dirExists(`${destinationDirectory}/${namedDirectory}`)) {
-        if (popAtEnd) {
+        if (popAtEnd === "true") {
             rsync(`${destinationDirectory}/${namedDirectory}`, `${cacheDirectory}/${namedDirectory}`);
             console.log(`Synced ${destinationDirectory}/${namedDirectory} to ${cacheDirectory}`);
+        } else {
+            console.log("Skipping sync back to cache directory");
         }
-        if (deleteAtEnd) {
+        if (deleteAtEnd === "true") {
             fs.rmdirSync(
                 `${destinationDirectory}/${namedDirectory}`,
                 { recursive: true }
             );
             console.log(`Deleted ${destinationDirectory}/${namedDirectory}`);
+        } else {
+            console.log("Skipping deletion of named directory");
         }
     } else {
         console.log(`${destinationDirectory}/${namedDirectory} does not exist`);
