@@ -24,6 +24,6 @@ inputs:
     default: true
     required: false
 runs:
-  using: "node12"
+  using: "node16"
   main: 'directory-push.js'
   post: 'directory-pop.js'

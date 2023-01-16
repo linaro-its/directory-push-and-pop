@@ -31,7 +31,7 @@ Defaults to `true`. Set to `false` if you do **not** want the named directory to
 ## Example usage
 
 ```yaml
-uses: linaro-its/directory-push-pop@v2
+uses: linaro-its/directory-push-pop@v3
 with:
     cacheDirectory: /srv/cache
     namedDirectory: $SITE_URL
